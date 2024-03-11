@@ -1,0 +1,142 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.demo</groupId>
+  <artifactId>SoapRpc</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>SoapRpc</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.complier.target>1.8</maven.complier.target>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    
+   <dependency>
+		<groupId>jakarta.xml.ws</groupId>
+		<artifactId>jakarta.xml.ws-api</artifactId>
+		<version>3.0.0</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>com.sun.xml.ws</groupId>
+		<artifactId>jaxws-rt</artifactId>
+		<version>2.3.3</version>
+		<scope>runtime</scope>
+	</dependency>
+	
+	<dependency>
+		<groupId>com.sun.xml.ws</groupId>
+		<artifactId>jaxws-ri</artifactId>
+		<version>2.3.1</version>
+		<type>pom</type>
+	</dependency>
+  </dependencies>
+  
+  <build>
+	  <plugins>
+		  <plugin>
+			  <groupId>org.apache.maven.plugins</groupId>
+			  <artifactId>maven-surefire-plugin</artifactId>
+			  <version>3.1.2</version>
+		  </plugin>
+
+		  <plugin>
+			  <groupId>com.sun.xml.ws</groupId>
+			  <artifactId>jaxws-maven-plugin</artifactId>
+			  <version>2.3.2</version>
+			  <executions>
+				  <execution>
+					  <id>generate-client-wsdl</id>
+					  <phase>process-classes</phase>
+					  <goals>
+						  <goal>wsgen</goal>
+						  </goals>
+						  <configuration>
+							 <sei>com.demo.SoapDoc.HelloWorldImpl</sei>
+							 <genWsdl>false</genWsdl>
+						  </configuration>
+				  </execution>
+			</executions>
+		</plugin>
+		
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-jar-plugin</artifactId>
+		    <version>3.3.0</version>
+		    <configuration>
+				<archive>
+					<index>true</index>
+				</archive>
+			</configuration>
+			<executions>
+				<execution>
+					<phase>package</phase>
+					<goals>
+						<goal>jar</goal>
+					</goals>
+				</execution>
+			</executions>
+		</plugin>
+
+
+
+<!-- Maven Compiler Plugin -->
+
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<version>3.8.1</version>
+			<configuration>
+				<source>1.8</source>
+				<target>1.8</target>
+			</configuration>
+		</plugin>
+	</plugins>
+	  <pluginManagement>
+	  	<plugins>
+	  		<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+	  		<plugin>
+	  			<groupId>org.eclipse.m2e</groupId>
+	  			<artifactId>lifecycle-mapping</artifactId>
+	  			<version>1.0.0</version>
+	  			<configuration>
+	  				<lifecycleMappingMetadata>
+	  					<pluginExecutions>
+	  						<pluginExecution>
+	  							<pluginExecutionFilter>
+	  								<groupId>com.sun.xml.ws</groupId>
+	  								<artifactId>
+	  									jaxws-maven-plugin
+	  								</artifactId>
+	  								<versionRange>
+	  									[2.3.2,)
+	  								</versionRange>
+	  								<goals>
+	  									<goal>wsgen</goal>
+	  								</goals>
+	  							</pluginExecutionFilter>
+	  							<action>
+	  								<ignore></ignore>
+	  							</action>
+	  						</pluginExecution>
+	  					</pluginExecutions>
+	  				</lifecycleMappingMetadata>
+	  			</configuration>
+	  		</plugin>
+	  	</plugins>
+	  </pluginManagement>
+  </build>
+</project>
